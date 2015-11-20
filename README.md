@@ -9,7 +9,7 @@ Plugin is really slow and makes a lot of assumptions. Multimodule projects paren
 
 Add a profile to parent pom.xml
 
-	      <profile>
+        <profile>
             <id>collect</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
@@ -58,7 +58,7 @@ will collect private dependencies to local file repository, and it will be possi
 
 Includes and excludes will allow to include or exclude certain artifacts by mask:
 
-  <include>
-    <groupIdMask>com.ibm*</groupIdMask>
-    <artifactIdMask>*</artifactIdMask>
-  </include>
+        <include>
+                <groupIdMask>com.ibm*</groupIdMask>
+                <artifactIdMask>*</artifactIdMask>
+        </include>
