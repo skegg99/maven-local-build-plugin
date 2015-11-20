@@ -3,11 +3,11 @@ Collects non-public maven dependencies to local file repository in order to dist
 
 This will allow to distribute projects depending on non-public artifacts from private repository. It will create a local file repository to be distributed with source code. Not the best practice, but we need it sometimes.
 
-Plugin is really slow and makes a lot of assumptions. Multimodule projects parent module, for example, must have a name "project" (artifactId) or "project.parent". All projects must be deployed to repository and local repo must me emptied (remove repository folder from ~/.m2).
+Plugin is really slow and makes a lot of assumptions. Multimodule projects parent module, for example, must have a name "project" (artifactId) or "project.parent". All projects must be deployed to repository and local repo must me emptied (remove repository folder from ~/.m2). There are numerous other problems :)
 
 ## Configuration
 
-Add a profile to parent pom.xml
+Add a profile to (parent) pom.xml
 
         <profile>
             <id>collect</id>
@@ -42,6 +42,13 @@ Add a profile to parent pom.xml
             </build>
         </profile>
 
+Includes and excludes will allow to include or exclude certain artifacts by mask:
+
+        <include>
+                <groupIdMask>com.guanoislands*</groupIdMask>
+                <artifactIdMask>*</artifactIdMask>
+        </include>
+        
 And a repository pointing to local folder pointing at targetRepositoryPath from plugin configuration above
 
         <repository>
@@ -52,13 +59,13 @@ And a repository pointing to local folder pointing at targetRepositoryPath from 
 
 ## Usage 
 
-mvn clean install -P collect 
+Build plugin from maven
 
-will collect private dependencies to local file repository, and it will be possible to build project in absence of private repository. 
+*mvn clean install*
 
-Includes and excludes will allow to include or exclude certain artifacts by mask:
+Move to (parent) project and build project with new profile
 
-        <include>
-                <groupIdMask>com.ibm*</groupIdMask>
-                <artifactIdMask>*</artifactIdMask>
-        </include>
+*mvn clean install -P collect*
+
+This will collect private dependencies to local file repository, and it will be possible to build project with no access to your private repository.
+
